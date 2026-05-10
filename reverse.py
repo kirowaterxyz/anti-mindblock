@@ -800,7 +800,8 @@ def activate_australia_mode():
 
     def run_australia_mode_actions(directory, skin_path):
         global is_australia_mode_successfully_active       
-        rotate_images(skin_path, restore=False)
+        if skin_path:  # Only rotate images if a skin was selected
+            rotate_images(skin_path, restore=False)
         edit_settings_json(directory)
         restart_opentabletdriver(directory)
         set_display_orientation(180)
