@@ -46,6 +46,7 @@ is_australia_mode_active = False
 hotkeys_enabled = False
 display_count = 0
 display_count_refresh = 0
+last_method_used = None
 config = configparser.ConfigParser()
 config_file_path = 'user_settings.ini'
 should_rotate_screen = False
@@ -800,8 +801,11 @@ def activate_australia_mode():
     # Determine the skin path to use based on the last method used
     if last_method_used == 'automatic' and detected_skin_path:
         skin_path_to_use = detected_skin_path
+    elif last_method_used == 'manual':
+        anchor = skins_list.get(tk.ANCHOR)
+        skin_path_to_use = os.path.join(osu_directory_entry.get(), "Skins", anchor) if anchor else None
     else:
-        skin_path_to_use = os.path.join(osu_directory_entry.get(), "Skins", skins_list.get(tk.ANCHOR))
+        skin_path_to_use = None  # No skin selected, skip image rotation
 
     def run_australia_mode_actions(directory, skin_path):
         global is_australia_mode_successfully_active       
