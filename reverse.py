@@ -27,6 +27,11 @@ import sys
 import webbrowser
 import configparser
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.dirname(__file__), relative_path)
+
 def lower_process_priority():
     process = psutil.Process(os.getpid())
     process.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
@@ -881,10 +886,10 @@ hotkey_thread.start()
 root = tk.Tk()
 root.title("Shikke's Skin Rotator")
 root.bind('<Shift-Alt-a>', lambda event: deactivate_australia_mode())
-icon_path = os.path.join(os.path.dirname(__file__), 'favicon.ico')
+icon_path = resource_path('assets/favicon.ico')
 root.iconbitmap(icon_path)
 
-theme_path = os.path.join(os.path.dirname(__file__), 'forest-dark.tcl')
+theme_path = resource_path('forest-dark.tcl')
 root.tk.call('source', theme_path)
 tab_control = ttk.Notebook(root)
 ttk.Style().theme_use('forest-dark')
