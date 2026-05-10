@@ -29,7 +29,12 @@ jobs:
 
     - name: Build EXE with PyInstaller
       run: |
-        pyinstaller --onefile --windowed --icon=favicon.ico --add-data "favicon.ico;." --add-data "forest-dark.tcl;." reverse.py
+        pyinstaller --onefile --windowed `
+          --icon=assets/favicon.ico `
+          --add-data "assets;assets" `
+          --add-data "forest-dark.tcl;." `
+          --add-data "forest-dark;forest-dark" `
+          reverse.py
 
     - name: Upload EXE artifact
       uses: actions/upload-artifact@v4
